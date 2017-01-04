@@ -1,25 +1,27 @@
-import React, {PropTypes} from 'react';
-import {connect} from 'react-redux';
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 
 /* eslint-disable no-console */
 class DiscComponent extends React.Component {
     constructor(props, context) {
         super(props, context);
     }
-    
-    render() {
-        const discsToDisplay = this.props.discs;
 
-        return (
+    render() {
+        return ( 
             <div>
-               {discsToDisplay.title}
+                <ul> 
+                    {this.props.discs.map(disc => 
+                        <li key={disc.title}>{disc.title}</li>
+                    )} 
+                </ul>             
             </div>
         );
     }
 }
 
 DiscComponent.propTypes = {
-    discs: PropTypes.object.isRequired
+    discs: PropTypes.array.isRequired
 };
 
 export default DiscComponent;

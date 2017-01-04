@@ -13,7 +13,7 @@ class DiscPage extends React.Component {
     }
     
     render() {
-        const discsToDisplay = this.props.discs;
+        const discsToDisplay = (this.props.discs.albums) ? this.props.discs.albums : [];
         return (
             <div>
                 <Disc discs={discsToDisplay} />
