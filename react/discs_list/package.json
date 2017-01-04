@@ -1,5 +1,5 @@
 {
-  "name": "cvclient",
+  "name": "disc-store",
   "version": "1.0.0",
   "description": "Client app to display the Resume of a candidate",
   "scripts": {
