@@ -10,7 +10,10 @@ import {loadDiscs} from './actions/discActions';
 import './styles/styles.scss';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-const store = configureStore();
+// Grab the state from a global variable injected into the server-generated HTML
+const preloadedState = window.__PRELOADED_STATE__;
+
+const store = configureStore(preloadedState);
 store.dispatch(loadDiscs());
 
 render(

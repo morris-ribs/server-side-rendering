@@ -1,8 +1,5 @@
-class DiscApiClient {
-  static getDiscs() {    
-    // here we do a simple call to the dummy server and retrieve the response as JSON 
-    return fetch(`http://localhost:4400/`).then(response => response.json());
-  }
-}
+import "isomorphic-fetch";
 
-export default DiscApiClient;
+export function fetchDiscs(callback) {
+  return fetch(`http://localhost:4400/`).then(response => response.json());
+}
