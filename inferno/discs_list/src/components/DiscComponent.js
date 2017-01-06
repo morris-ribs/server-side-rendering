@@ -7,25 +7,24 @@ class DiscComponent extends Component {
     constructor(props) {
 		super(props);
 		this.state = {
-			discs: []
+            data: { "albums": [] }
 		};
 	}
 
     componentDidMount() {
-		fetchDiscs().then(discs => {
-            console.log(discs);
+		fetchDiscs().then(data => {
             this.setState({
-				discs
+				data
 			});  
       }).catch(error => { 
           console.log(error.message);
       });
 	}
-    render() {
+    render() {        
         return ( 
             <div>
                 <ul> 
-                    {this.state.discs.map(disc => 
+                    {this.state.data.albums.map(disc => 
                         <li key={disc.title}>{disc.title}</li>
                     )} 
                 </ul>             
