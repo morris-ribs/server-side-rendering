@@ -18,9 +18,9 @@ const store = configureStore(preloadedState);
 store.dispatch(loadDiscs());
 
 Inferno.render(
-    <Router history={browserHistory}>
+    <Router history={browserHistory} >
         <Route path="/" component={App}>
-        <IndexRoute component={DiscPage} />
+            <IndexRoute component={DiscPage} />
         </Route>
     </Router>,
     document.getElementById('app')

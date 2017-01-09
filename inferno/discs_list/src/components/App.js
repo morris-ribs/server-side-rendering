@@ -7,7 +7,7 @@ class App extends Component {
     render() {
         return(
             <div>
-                <DiscPage />
+                { this.props.children }
             </div>
         );
     }
