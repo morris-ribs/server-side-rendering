@@ -1,6 +1,6 @@
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-import {fetchDiscs} from '../api/DiscApiClient';
+import {fetchDiscs} from '../../api/DiscApiClient';
 
 /* eslint-disable no-console */
 class DiscComponent extends Component {
