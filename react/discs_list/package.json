@@ -1,7 +1,7 @@
 {
-  "name": "disc-store",
+  "name": "disc-store-react",
   "version": "1.0.0",
-  "description": "Client app to display the Resume of a candidate",
+  "description": "A small server-side rendering example developed in React and Redux",
   "scripts": {
     "prestart": "babel-node tools/startMessage.js",
     "start": "npm-run-all --parallel open:src lint:watch server:start",

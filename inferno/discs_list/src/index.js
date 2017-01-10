@@ -8,6 +8,9 @@ import {loadDiscs} from './actions/discActions';
 import { createBrowserHistory } from 'history';
 import App from './components/App';
 import DiscPage from './components/disc/DiscPage';
+import routes from './routes';
+import './styles/styles.scss';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const browserHistory = createBrowserHistory();
 
@@ -18,10 +21,10 @@ const store = configureStore(preloadedState);
 store.dispatch(loadDiscs());
 
 Inferno.render(
-    <Router history={browserHistory} >
-        <Route path="/" component={App}>
-            <IndexRoute component={DiscPage} />
-        </Route>
-    </Router>,
+    <Provider store={store}>
+        <Router history={browserHistory} component={ App }>
+                <IndexRoute component={DiscPage} />
+        </Router>
+    </Provider>,
     document.getElementById('app')
 );

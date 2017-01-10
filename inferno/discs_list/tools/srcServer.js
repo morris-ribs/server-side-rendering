@@ -6,7 +6,7 @@ import path from 'path';
 import config from '../webpack.config.dev';
 import Inferno from 'inferno';
 import open from 'open';
-import InfernoServer from 'inferno-server';
+import { renderToString } from 'inferno-server';
 import {Provider} from 'inferno-redux';
 import { match, RouterContext } from 'inferno-router';
 import routes from '../src/routes';
@@ -32,11 +32,10 @@ app.use(handleRender);
 
 function handleRender(req, res) {
   const renderProps = match(routes, req.originalUrl);
-  console.log(renderProps);
   if (renderProps.redirect) {
     res.redirect(renderProps.redirect);
   } else if (renderProps) {
-
+      
     fetchDiscs().then(discs => {
       // Compile an initial state
       let preloadedState = {};
@@ -44,17 +43,17 @@ function handleRender(req, res) {
       // Create a new Redux store instance
       const store = configureStore(preloadedState);
       store.dispatch(getDiscSuccess(discs));
-
+      
       // You can also check renderProps.components or renderProps.routes for
       // your "not found" component or route respectively, and send a 404 as
       // below, if you're using a catch-all route.
-      const html = InfernoServer.renderToString(<Provider store={store}><RouterContext {...renderProps} /></Provider>);
+      const html = renderToString(<Provider store={store}><RouterContext {...renderProps} /></Provider>);
 
       // Grab the initial state from our Redux store
       const finalState = store.getState();
 
       // Send the rendered page back to the client
-      res.status(200).send(renderFullPage(html, finalState));      
+      res.status(200).send(renderFullPage(html, finalState));   
     }).catch(error => { 
         res.status(500).send(error.message);
     });

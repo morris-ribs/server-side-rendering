@@ -1,5 +1,5 @@
 // This component handles the App template used on every page
-import Inferno, {PropTypes} from 'inferno';
+import Inferno from 'inferno';
 import Component from 'inferno-component';
 import DiscPage from '../components/disc/DiscPage';
 

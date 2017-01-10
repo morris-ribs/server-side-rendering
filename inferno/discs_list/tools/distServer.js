@@ -1,12 +1,12 @@
 /*eslint-disable import/default */ 
-/*import qs from 'qs';
+import qs from 'qs';
 import express from 'express';
 import webpack from 'webpack';
 import path from 'path';
 import config from '../webpack.config.dev';
 import Inferno from 'inferno';
 import open from 'open';
-import { renderToString } from 'react-dom/server';
+import { renderToString } from 'inferno-server';
 import {Provider} from 'inferno-redux';
 import { match, RouterContext } from 'inferno-router';
 import routes from '../src/routes';
@@ -17,45 +17,43 @@ import compression from 'compression';
 
 /* eslint-disable no-console */
 
-/*const port = 3000;
+const port = 3000;
 const app = express();
 
 app.use(express.static('dist'));
 app.use(compression());
 
 function handleRender(req, res) {
-  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
-    if (error) {
-      res.status(500).send(error.message);
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
+  const renderProps = match(routes, req.originalUrl);
+  if (renderProps.redirect) {
+    res.redirect(renderProps.redirect);
+  } else if (renderProps) {
+      
+    fetchDiscs().then(discs => {
+      // Compile an initial state
+      let preloadedState = {};
+      
+      // Create a new Redux store instance
+      const store = configureStore(preloadedState);
+      store.dispatch(getDiscSuccess(discs));
+      
+      // You can also check renderProps.components or renderProps.routes for
+      // your "not found" component or route respectively, and send a 404 as
+      // below, if you're using a catch-all route.
+      const html = renderToString(<Provider store={store}><RouterContext {...renderProps} /></Provider>);
+      console.log(store.getState());
 
-      fetchDiscs().then(discs => {
-        // Compile an initial state
-        let preloadedState = {};
-        
-        // Create a new Redux store instance
-        const store = configureStore(preloadedState);
-        store.dispatch(getDiscSuccess(discs));
+      // Grab the initial state from our Redux store
+      const finalState = store.getState();
 
-        // You can also check renderProps.components or renderProps.routes for
-        // your "not found" component or route respectively, and send a 404 as
-        // below, if you're using a catch-all route.
-        const html = renderToString(<Provider store={store}><RouterContext {...renderProps} /></Provider>);
-
-        // Grab the initial state from our Redux store
-        const finalState = store.getState();
-
-        // Send the rendered page back to the client
-        res.status(200).send(renderFullPage(html, finalState));      
-      }).catch(error => { 
-          res.status(500).send(error.message);
-      });
-    } else {
-      res.status(404).send('Not found');
-    }
-  });
+      // Send the rendered page back to the client
+      res.status(200).send(renderFullPage(html, finalState));   
+    }).catch(error => { 
+        res.status(500).send(error.message);
+    });
+  } else {
+    res.status(404).send('Not found');
+  }
 }
 
 function renderFullPage(html, preloadedState) {
@@ -89,4 +87,4 @@ app.listen(port, function(err) {
         open(`http://localhost:${port}`);
         console.log('Listening to port 3000...');
     }
-});*/
+});
