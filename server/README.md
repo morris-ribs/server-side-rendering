@@ -27,4 +27,4 @@ $ npm start
 
 # To test it
 
-In order to test it, type in your browser `http://localhost:8080/` to launch the GraphiQL client.
+In order to test it, open an API client - e.g. Postman - and do a GET request to `http://localhost:4800/` in order to see the results.
