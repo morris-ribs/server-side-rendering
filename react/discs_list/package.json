@@ -20,7 +20,7 @@
   "author": "Mauricio Ribeiro",
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "3.3.6",
+    "bootstrap": "^3.4.0",
     "cors": "^2.8.1",
     "es6-promise": "^4.0.5",
     "isomorphic-fetch": "^2.2.1",
